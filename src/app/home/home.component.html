@@ -1,1 +1,10 @@
-<p>home works!</p>
+<main class="my-5">
+  <div class="grid grid-cols-3">
+    <div *ngFor="let todo of todos" class="border border-black rounded p-1">
+      <div class="border-b border-black mb-2 line-clamp-2">
+        <div class="text-xl font-bold">{{ todo.name }}</div>
+      </div>
+      <p>{{ todo.description }}</p>
+    </div>
+  </div>
+</main>
