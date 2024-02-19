@@ -1,7 +1,8 @@
 export interface Todo {
-  readonly id: string;
-  readonly name: string;
-  readonly updatedAt?: Date;
-  readonly createdAt?: Date;
-  readonly description?: string;
+  id: string;
+  name: string;
+  updatedAt?: Date;
+  createdAt?: Date;
+  description?: string;
+  isSelected: boolean;
 }

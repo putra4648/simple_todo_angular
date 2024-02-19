@@ -1,6 +1,6 @@
-<div class="h-screen">
+<div>
   <form
-    class="flex flex-col gap-2 items-center"
+    class="flex flex-col gap-2"
     [formGroup]="todoForm"
     (ngSubmit)="onSubmit()"
   >
@@ -10,6 +10,7 @@
       name="name"
       formControlName="name"
       maxlength="100"
+      required
       class="border border-black rounded w-1/2"
     />
     <label for="description">Description</label>
@@ -18,6 +19,7 @@
       id="description"
       rows="10"
       formControlName="description"
+      required
       class="border border-black rounded w-1/2"
     ></textarea>
     <button type="submit" class="bg-blue-500 rounded text-white py-2 w-1/2">
