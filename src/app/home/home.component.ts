@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodosService } from '../todos.service';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,9 @@ import { TodosService } from '../todos.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  constructor(private todoService: TodosService) {}
+  constructor(private todoService: TodosService) { }
+  todos: Signal<Todo[]> = this.todoService.getTodos();
 
-  todos = this.todoService.getTodos();
 
   onSelect(id: string): void {
     this.todoService.updateTodo(id);

@@ -8,12 +8,13 @@ import { HttpClient } from '@angular/common/http';
 export class TodosService {
   private todos = signal<Todo[]>([]);
 
-  constructor(private client: HttpClient) { }
-
-  getTodos() {
+  constructor(private client: HttpClient) {
     this.client.get("https://jsonplaceholder.typicode.com/todos").subscribe((data) => {
       this.todos.set(data as Todo[])
     })
+  }
+
+  getTodos() {
     return computed(() => this.todos());
   }
 
