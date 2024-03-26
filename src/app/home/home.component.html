@@ -2,13 +2,26 @@
   <div *ngIf="todos().length > 0; then content; else notFound"></div>
   <ng-template #content>
     <div class="grid grid-cols-3 gap-2">
-      <div *ngFor="let todo of todos()"
-        class="flex flex-row items-center justify-between border border-black rounded p-1" [ngClass]="{
+      <div *ngFor="let todo of todos(); index as i"
+        class="flex flex-col justify-between border border-black rounded p-2 gap-2" [ngClass]="{
           'bg-slate-300': todo.completed,
           'bg-transparent': !todo.completed
-        }" (click)="onSelect(todo.id)">
-        <div class="text-xl font-bold">{{ todo.title }}</div>
-        <input type="checkbox" [name]="todo.id" [checked]='todo.completed'>
+        }">
+        <div class="flex flex-row justify-between items-center w-full gap-2">
+          <div *ngIf="todo.isUpdate; else showTitle">
+            <input type="text" (name)="'title_'+todo.id" value="" [formControl]='titleInput'
+              (keypress)='onUpdateTitleChange($event,todo)'>
+          </div>
+          <ng-template #showTitle>
+            <div class="text-xl font-bold">{{ todo.title }}</div>
+          </ng-template>
+          <input type="checkbox" [name]="'checkbox_'+todo.id" [checked]='todo.completed' (click)="onUpdate(todo)">
+        </div>
+        <div class="flex flex-row gap-2">
+          <button type="button" class="bg-yellow-500 text-white p-2 rounded"
+            (click)="onUpdateWithTitle(todo)">Update</button>
+          <button type="button" (click)="onDelete(todo.id)" class="bg-red-500 text-white p-2 rounded">Delete</button>
+        </div>
       </div>
     </div>
   </ng-template>

@@ -10,7 +10,7 @@ export class TodosService {
 
   constructor(private client: HttpClient) {
     this.client.get("https://jsonplaceholder.typicode.com/todos").subscribe((data) => {
-      this.todos.set(data as Todo[])
+      this.todos.set((data as Todo[]))
     })
   }
 
@@ -25,19 +25,22 @@ export class TodosService {
     });
   }
 
-  updateTodo(id: string) {
+  updateTodo(todo: Todo) {
     const newArr = this.todos().map((d) => {
-      if (d.id === id) {
-        return { ...d, completed: !d.completed };
+      if (d.id === todo.id) {
+        return { ...d, completed: !d.completed, isUpdate: todo.isUpdate, title: todo.title };
       } else {
         return d;
       }
     });
+    console.log(`Update todo ${todo.id}`, newArr.filter(d => d.id === todo.id))
     this.todos.set(newArr);
+
   }
 
-  deleteTodo() {
-    const newArr = this.todos().filter((d) => !d.completed);
+
+  deleteTodo(id: string) {
+    const newArr = this.todos().filter((d) => d.id !== id);
     this.todos.set(newArr);
   }
 }
