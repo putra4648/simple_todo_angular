@@ -2,19 +2,13 @@
   <div *ngIf="todos().length > 0; then content; else notFound"></div>
   <ng-template #content>
     <div class="grid grid-cols-3 gap-2">
-      <div
-        *ngFor="let todo of todos()"
-        class="border border-black rounded p-1"
-        [ngClass]="{
-          'bg-slate-300': todo.isSelected,
-          'bg-transparent': !todo.isSelected
-        }"
-        (click)="onSelect(todo.id)"
-      >
-        <div class="border-b border-black mb-2 line-clamp-2">
-          <div class="text-xl font-bold">{{ todo.name }}</div>
-        </div>
-        <p>{{ todo.description }}</p>
+      <div *ngFor="let todo of todos()"
+        class="flex flex-row items-center justify-between border border-black rounded p-1" [ngClass]="{
+          'bg-slate-300': todo.completed,
+          'bg-transparent': !todo.completed
+        }" (click)="onSelect(todo.id)">
+        <div class="text-xl font-bold">{{ todo.title }}</div>
+        <input type="checkbox" [name]="todo.id" [checked]='todo.completed'>
       </div>
     </div>
   </ng-template>

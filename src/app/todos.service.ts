@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Todo } from './todo';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -7,9 +8,12 @@ import { Todo } from './todo';
 export class TodosService {
   private todos = signal<Todo[]>([]);
 
-  constructor() {}
+  constructor(private client: HttpClient) { }
 
   getTodos() {
+    this.client.get("https://jsonplaceholder.typicode.com/todos").subscribe((data) => {
+      this.todos.set(data as Todo[])
+    })
     return computed(() => this.todos());
   }
 
@@ -23,7 +27,7 @@ export class TodosService {
   updateTodo(id: string) {
     const newArr = this.todos().map((d) => {
       if (d.id === id) {
-        return { ...d, isSelected: !d.isSelected };
+        return { ...d, completed: !d.completed };
       } else {
         return d;
       }
@@ -32,7 +36,7 @@ export class TodosService {
   }
 
   deleteTodo() {
-    const newArr = this.todos().filter((d) => !d.isSelected);
+    const newArr = this.todos().filter((d) => !d.completed);
     this.todos.set(newArr);
   }
 }

@@ -10,7 +10,7 @@ import { TodosService } from './todos.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  constructor(private todosService: TodosService, private router: Router) {}
+  constructor(private todosService: TodosService, private router: Router) { }
 
   deleteTodo() {
     const url = this.router.url;

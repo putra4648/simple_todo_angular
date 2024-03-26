@@ -15,7 +15,7 @@ export class AddTodoComponent {
     private todoService: TodosService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   todoForm = this.formBuilder.group({
     name: '',
@@ -40,9 +40,8 @@ export class AddTodoComponent {
       const id = this.todoForm.value.name! + Math.floor(Math.random() * 10);
       this.todoService.addTodo({
         id: id,
-        name: this.todoForm.value.name || '',
-        description: this.todoForm.value.description || '',
-        isSelected: false,
+        title: this.todoForm.value.name || '',
+        completed: false,
       });
       this.todoForm.reset();
       this.router.navigateByUrl('/');
